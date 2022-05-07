@@ -1,38 +1,44 @@
 {
-	"folders": [
-	  {
-		"path": "."
-	  }
-	],
-	"settings": {
-	  "javascript.updateImportsOnFileMove.enabled": "always",
-	  "explorer.confirmDelete": false,
-	  "explorer.confirmDragAndDrop": false,
-	  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
-	  "npm.enableRunFromFolder": true,
-	  "editor.formatOnSave": true,
-	  "breadcrumbs.enabled": true,
-	  "eslint.alwaysShowStatus": true,
-	  // The number of spaces a tab is equal to. This setting is overridden
-	  // based on the file contents when `editor.detectIndentation` is true.
-	  "editor.tabSize": 2,
-	  // Insert spaces when pressing Tab. This setting is overriden
-	  // based on the file contents when `editor.detectIndentation` is true.
-	  "editor.insertSpaces": true,
-	  // When opening a file, `editor.tabSize` and `editor.insertSpaces`
-	  // will be detected based on the file contents. Set to false to keep
-	  // the values you've explicitly set, above.
-	  "editor.detectIndentation": false,
-	  "javascript.suggest.autoImports": true,
-	  "emmet.triggerExpansionOnTab": true,
-	  "emmet.excludeLanguages": ["markdown"],
-	  "emmet.includeLanguages": {
-		"javascript": "javascriptreact"
-	  },
-	  "window.zoomLevel": 0,
-	  "editor.minimap.enabled": false,
-	  "autoimport.filesToScan": "**/*.{js}",
-	  "editor.bracketPairColorization.enabled": true
-	}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "npm.enableRunFromFolder": true,
+    "editor.formatOnSave": true,
+    "breadcrumbs.enabled": true,
+    "eslint.alwaysShowStatus": true,
+    // The number of spaces a tab is equal to. This setting is overridden
+    // based on the file contents when `editor.detectIndentation` is true.
+    "editor.tabSize": 2,
+    // Insert spaces when pressing Tab. This setting is overriden
+    // based on the file contents when `editor.detectIndentation` is true.
+    "editor.insertSpaces": true,
+    // When opening a file, `editor.tabSize` and `editor.insertSpaces`
+    // will be detected based on the file contents. Set to false to keep
+    // the values you've explicitly set, above.
+    "editor.detectIndentation": false,
+    "javascript.suggest.autoImports": true,
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.excludeLanguages": ["markdown"],
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+    },
+    "window.zoomLevel": 0,
+    "editor.minimap.enabled": false,
+    "autoimport.filesToScan": "**/*.{js}",
+    "editor.bracketPairColorization.enabled": true
   }
-  
+}
