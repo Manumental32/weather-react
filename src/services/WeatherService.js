@@ -6,7 +6,8 @@ export const getWeather = ({
   longitude,
   units = 'metric',
   part = 'hourly,minutely,alerts',
-  url = `${apiUrl}onecall?appid=${apiKey}&lat=${latitude}&lon=${longitude}&units=${units}&exclude=${part}`
+  lang = 'es',
+  url = `${apiUrl}onecall?appid=${apiKey}&lat=${latitude}&lon=${longitude}&units=${units}&exclude=${part}&lang=${lang}`
 }) =>
   fetch(url)
     .then((response) => response.json())
