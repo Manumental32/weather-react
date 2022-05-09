@@ -5,18 +5,11 @@ export const getWeather = ({
   latitude,
   longitude,
   units = 'metric',
-  part = 'hourly,minutely,alerts'
-}) => {
-  const url = `${apiUrl}onecall?appid=${apiKey}&lat=${latitude}&lon=${longitude}&units=${units}&exclude=${part}`;
+  part = 'hourly,minutely,alerts',
+  url = `${apiUrl}onecall?appid=${apiKey}&lat=${latitude}&lon=${longitude}&units=${units}&exclude=${part}`
+}) =>
   fetch(url)
     .then((response) => response.json())
-    .then((data) => {
-      console.log('data', data);
-      return data;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+    .then((data) => data);
 
 export default getWeather;

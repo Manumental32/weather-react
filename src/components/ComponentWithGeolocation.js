@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-alert */
 /* eslint-disable no-debugger */
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '../hooks/useLocation';
@@ -7,17 +9,27 @@ import { cities, currentLocation } from '../utils/Constants';
 function ComponentWithGeolocation() {
   const geolocation = useGeolocation();
   const [citySelected, setCitySelected] = useState(null);
+  const [weather, setWeather] = useState(null);
+
+  const searchWeather = (city) => {
+    getWeather(city)
+      .then((response) => {
+        setWeather(response);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   useEffect(() => {
     if (geolocation.latitude) {
-      // setCitySelected(geolocation);
-      getWeather(geolocation);
+      searchWeather(geolocation);
     }
   }, [geolocation?.latitude]);
 
   useEffect(() => {
     if (citySelected) {
-      getWeather(citySelected);
+      searchWeather(citySelected);
     }
   }, [citySelected]);
 
@@ -51,6 +63,7 @@ function ComponentWithGeolocation() {
           </option>
         ))}
       </select>
+      <section>{weather && JSON.stringify(weather)}</section>
     </>
   ) : (
     <p>Error geolocation.</p>
