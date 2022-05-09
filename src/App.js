@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import getWeather from './services/WeatherService';
+import ComponentWithGeolocation from './components/ComponentWithGeolocation';
 
 function App() {
-  getWeather();
   return (
     <div className="App">
       <header className="App-header">WEATHER APP</header>
-      <section />
+      <ComponentWithGeolocation />
     </div>
   );
 }
