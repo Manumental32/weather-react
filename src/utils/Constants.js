@@ -1,4 +1,10 @@
 // eslint-disable-next-line import/prefer-default-export
+
+export const currentLocation = {
+  id: 0,
+  description: 'Ubicación actual'
+};
+
 export const cities = [
   {
     id: 1,

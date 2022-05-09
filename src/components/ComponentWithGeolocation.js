@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '../hooks/useLocation';
 import getWeather from '../services/WeatherService';
-import { cities } from '../utils/Constants';
+import { cities, currentLocation } from '../utils/Constants';
 
 function ComponentWithGeolocation() {
   const geolocation = useGeolocation();
@@ -23,7 +23,7 @@ function ComponentWithGeolocation() {
 
   const handleOnChange = ({ target }) => {
     const { value } = target;
-    if (value === '0') {
+    if (value === String(currentLocation.id)) {
       setCitySelected(geolocation);
     } else {
       const selectedCity = cities.find(({ id }) => String(id) === value);
@@ -38,8 +38,12 @@ function ComponentWithGeolocation() {
         <li>Longitude: {geolocation.longitude}</li>
       </ul>
       <select name="cities" onChange={handleOnChange}>
-        <option key={0} value={0} defaultValue>
-          Ubicación actual
+        <option
+          key={currentLocation.id}
+          value={currentLocation.id}
+          defaultValue
+        >
+          {currentLocation.description}
         </option>
         {cities.map(({ id, description }) => (
           <option key={id} value={id}>
