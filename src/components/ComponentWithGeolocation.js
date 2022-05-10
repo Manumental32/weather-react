@@ -1,10 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-alert */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-debugger */
+/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '../hooks/useLocation';
-import getWeather from '../services/WeatherService';
+import getOneCallWeather from '../services/WeatherService';
 import { cities, currentLocation } from '../utils/Constants';
+import WeatherDetail from './WeatherDetail';
 
 function ComponentWithGeolocation() {
   const geolocation = useGeolocation();
@@ -12,7 +13,7 @@ function ComponentWithGeolocation() {
   const [weather, setWeather] = useState(null);
 
   const searchWeather = (city) => {
-    getWeather(city)
+    getOneCallWeather(city)
       .then((response) => {
         setWeather(response);
       })
@@ -22,9 +23,10 @@ function ComponentWithGeolocation() {
   };
 
   useEffect(() => {
-    if (geolocation.latitude) {
+    if (geolocation?.latitude) {
       searchWeather(geolocation);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [geolocation?.latitude]);
 
   useEffect(() => {
@@ -45,28 +47,39 @@ function ComponentWithGeolocation() {
 
   return !geolocation.error ? (
     <>
-      <ul>
-        <li>Latitude: {geolocation.latitude}</li>
-        <li>Longitude: {geolocation.longitude}</li>
-      </ul>
-      <select name="cities" onChange={handleOnChange}>
-        <option
-          key={currentLocation.id}
-          value={currentLocation.id}
-          defaultValue
-        >
-          {currentLocation.description}
-        </option>
-        {cities.map(({ id, description }) => (
-          <option key={id} value={id}>
-            {description}
-          </option>
-        ))}
-      </select>
-      <section>{weather && JSON.stringify(weather)}</section>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <select name="cities" onChange={handleOnChange}>
+              <option
+                key={currentLocation.id}
+                value={currentLocation.id}
+                defaultValue
+              >
+                {currentLocation.description}
+              </option>
+              {cities.map(({ id, description }) => (
+                <option key={id} value={id}>
+                  {description}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="row">
+            {citySelected &&
+              weather &&
+              weather?.daily?.slice(0, 5).map((day, index) => (
+                <div className="col" key={index}>
+                  <WeatherDetail data={day} />
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+      {/* <section>{weather && JSON.stringify(weather)}</section> */}
     </>
   ) : (
-    <p>Error geolocation.</p>
+    <p>Error del geolocalizador.</p>
   );
 }
 

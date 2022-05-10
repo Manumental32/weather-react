@@ -1,7 +1,7 @@
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 const apiUrl = process.env.REACT_APP_WEATHER_API_URL;
 
-export const getWeather = ({
+export const getOneCallWeather = ({
   latitude,
   longitude,
   units = 'metric',
@@ -13,4 +13,13 @@ export const getWeather = ({
     .then((response) => response.json())
     .then((data) => data);
 
-export default getWeather;
+export const getCurrentWeather = ({
+  latitude,
+  longitude,
+  url = `${apiUrl}weather?appid=${apiKey}&lat=${latitude}&lon=${longitude}`
+}) =>
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => data);
+
+export default getOneCallWeather;
