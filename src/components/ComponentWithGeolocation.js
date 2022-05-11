@@ -12,14 +12,21 @@ function ComponentWithGeolocation() {
   const geolocation = useGeolocation();
   const [citySelected, setCitySelected] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const searchWeather = (city) => {
+    setIsLoading(true);
+    setHasError(false);
     getOneCallWeather(city)
       .then((response) => {
         setWeather(response);
       })
-      .catch((error) => {
-        alert(error);
+      .catch(() => {
+        setHasError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -68,13 +75,24 @@ function ComponentWithGeolocation() {
           </select>
         </div>
       </div>
+      {isLoading && <div>Cargando...</div>}
+      {hasError && (
+        <div>
+          Ocurrió un error...
+          <button type="button" onClick={searchWeather}>
+            Reintentar
+          </button>
+        </div>
+      )}
       <div className="row">
-        {weather && weather?.current && (
+        {!isLoading && !hasError && weather && weather?.current && (
           <div className="col-12">
             <WeatherDetailCurrent data={weather?.current} />
           </div>
         )}
-        {weather &&
+        {!isLoading &&
+          !hasError &&
+          weather &&
           getWeatherNextDaysToShow(weather).map((day, index) => (
             <div className="col-lg col-md-6 col-sm-12" key={index}>
               <WeatherDetail data={day} index={index} />
