@@ -1,10 +1,12 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-debugger */
-/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '../hooks/useLocation';
 import getOneCallWeather from '../services/WeatherService';
 import { CITIES, CURRENT_LOCATION, DAYS_TO_SHOW } from '../utils/Constants';
+import CitiesSelector from './CitiesSelector';
+import ErrorView from './ErrorView';
+import GeolocationError from './GeolocationError';
+import LoadingView from './LoadingView';
 import WeatherDetail from './WeatherDetail';
 import WeatherDetailCurrent from './WeatherDetailCurrent';
 
@@ -55,44 +57,26 @@ function ComponentWithGeolocation() {
 
   const getWeatherNextDaysToShow = () => weather?.daily?.slice(0, DAYS_TO_SHOW);
 
+  const shouldShowCurrentWeather = () =>
+    !isLoading && !hasError && weather && weather?.current;
+  const shouldShowNextDaysWeather = () => !isLoading && !hasError && weather;
+
   return !geolocation.error ? (
     <div className="container">
       <div className="row">
         <div className="col">
-          <select name="cities" onChange={handleOnChange}>
-            <option
-              key={CURRENT_LOCATION.id}
-              value={CURRENT_LOCATION.id}
-              defaultValue
-            >
-              {CURRENT_LOCATION.description}
-            </option>
-            {CITIES.map(({ id, description }) => (
-              <option key={id} value={id}>
-                {description}
-              </option>
-            ))}
-          </select>
+          <CitiesSelector handleOnChange={handleOnChange} />
         </div>
       </div>
-      {isLoading && <div>Cargando...</div>}
-      {hasError && (
-        <div>
-          Ocurrió un error...
-          <button type="button" onClick={searchWeather}>
-            Reintentar
-          </button>
-        </div>
-      )}
+      {isLoading && <LoadingView />}
+      {hasError && <ErrorView handlerRetry={searchWeather} />}
       <div className="row">
-        {!isLoading && !hasError && weather && weather?.current && (
+        {shouldShowCurrentWeather() && (
           <div className="col-12">
             <WeatherDetailCurrent data={weather?.current} />
           </div>
         )}
-        {!isLoading &&
-          !hasError &&
-          weather &&
+        {shouldShowNextDaysWeather() &&
           getWeatherNextDaysToShow(weather).map((day, index) => (
             <div className="col-lg col-md-6 col-sm-12" key={index}>
               <WeatherDetail data={day} index={index} />
@@ -101,7 +85,7 @@ function ComponentWithGeolocation() {
       </div>
     </div>
   ) : (
-    <p>Error del geolocalizador.</p>
+    <GeolocationError />
   );
 }
 
