@@ -3,16 +3,25 @@ import '../App.css';
 import { weekdayReadeable } from '../utils/CommonFunctions';
 import DescriptionWeather from './DescriptionWeather';
 
-function WeatherDetail({ data, index }) {
+function WeatherDetail({
+  data,
+  index,
+  title = weekdayReadeable(index),
+  temperature = ''
+}) {
   if (!data) return null;
   const { humidity } = data;
-  const title = weekdayReadeable(index);
   const temperatureMin = parseFloat(data.temp.min).toFixed(0);
   const temperatureMax = parseFloat(data.temp.max).toFixed(0);
   return (
     <div className="card mt-3">
       <h3 className="card-header size-title">{title}</h3>
       <div className="card-body">
+        {temperature && (
+          <h4 className="card-title temperatura text-center title">
+            {temperature} C&deg;
+          </h4>
+        )}
         <ul>
           <li className="text-center temp-min-max size-min-max">
             <DescriptionWeather weather={data.weather[0]} />
