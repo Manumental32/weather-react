@@ -69,7 +69,9 @@ function ComponentWithGeolocation() {
         </div>
         <div className="row">
           {weather && weather?.current && (
-            <WeatherDetailCurrent data={weather?.current} />
+            <div className="col-12">
+              <WeatherDetailCurrent data={weather?.current} />
+            </div>
           )}
           {weather &&
             getWeatherNextDaysToShow(weather).map((day, index) => (
