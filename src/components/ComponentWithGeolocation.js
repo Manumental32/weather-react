@@ -4,8 +4,9 @@
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '../hooks/useLocation';
 import getOneCallWeather from '../services/WeatherService';
-import { cities, currentLocation } from '../utils/Constants';
+import { CITIES, CURRENT_LOCATION, DAYS_TO_SHOW } from '../utils/Constants';
 import WeatherDetail from './WeatherDetail';
+import WeatherDetailCurrent from './WeatherDetailCurrent';
 
 function ComponentWithGeolocation() {
   const geolocation = useGeolocation();
@@ -37,47 +38,48 @@ function ComponentWithGeolocation() {
 
   const handleOnChange = ({ target }) => {
     const { value } = target;
-    if (value === String(currentLocation.id)) {
+    if (value === String(CURRENT_LOCATION.id)) {
       setCitySelected(geolocation);
     } else {
-      const selectedCity = cities.find(({ id }) => String(id) === value);
+      const selectedCity = CITIES.find(({ id }) => String(id) === value);
       setCitySelected(selectedCity);
     }
   };
 
+  const getWeatherNextDaysToShow = () => weather?.daily?.slice(0, DAYS_TO_SHOW);
+
   return !geolocation.error ? (
-    <>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <select name="cities" onChange={handleOnChange}>
-              <option
-                key={currentLocation.id}
-                value={currentLocation.id}
-                defaultValue
-              >
-                {currentLocation.description}
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <select name="cities" onChange={handleOnChange}>
+            <option
+              key={CURRENT_LOCATION.id}
+              value={CURRENT_LOCATION.id}
+              defaultValue
+            >
+              {CURRENT_LOCATION.description}
+            </option>
+            {CITIES.map(({ id, description }) => (
+              <option key={id} value={id}>
+                {description}
               </option>
-              {cities.map(({ id, description }) => (
-                <option key={id} value={id}>
-                  {description}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="row">
-            {citySelected &&
-              weather &&
-              weather?.daily?.slice(0, 5).map((day, index) => (
-                <div className="col" key={index}>
-                  <WeatherDetail data={day} />
-                </div>
-              ))}
-          </div>
+            ))}
+          </select>
+        </div>
+        <div className="row">
+          {weather && weather?.current && (
+            <WeatherDetailCurrent data={weather?.current} />
+          )}
+          {weather &&
+            getWeatherNextDaysToShow(weather).map((day, index) => (
+              <div className="col" key={index}>
+                <WeatherDetail data={day} index={index} />
+              </div>
+            ))}
         </div>
       </div>
-      {/* <section>{weather && JSON.stringify(weather)}</section> */}
-    </>
+    </div>
   ) : (
     <p>Error del geolocalizador.</p>
   );

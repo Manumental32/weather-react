@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/prefer-default-export
 
-export const currentLocation = {
+export const DAYS_TO_SHOW = 5;
+
+export const CURRENT_LOCATION = {
   id: 0,
   description: 'Ubicación actual'
 };
 
-export const cities = [
+export const CITIES = [
   {
     id: 3427761,
     description: 'Tigre, Provincia de Buenos Aires',

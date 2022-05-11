@@ -15,7 +15,21 @@
 
 ul {
   list-style-type: none;
-  padding-left: 0;
+  padding-left: 0 !important;
+}
+
+.size-title {
+  font-size: 1.7rem;
+  text-transform: capitalize;
+}
+
+.description-weather {
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+.card-body {
+  padding: 0 !important;
 }
 
 @media (min-width: 200px) and (max-width: 767.98px) {
@@ -28,7 +42,7 @@ ul {
   .size-min-max {
     font-size: 1.5rem;
   }
-  .tempe {
+  .title {
     font-size: 3.1rem;
   }
 }
