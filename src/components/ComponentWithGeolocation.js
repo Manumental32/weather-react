@@ -67,19 +67,19 @@ function ComponentWithGeolocation() {
             ))}
           </select>
         </div>
-        <div className="row">
-          {weather && weather?.current && (
-            <div className="col-12">
-              <WeatherDetailCurrent data={weather?.current} />
+      </div>
+      <div className="row">
+        {weather && weather?.current && (
+          <div className="col-12">
+            <WeatherDetailCurrent data={weather?.current} />
+          </div>
+        )}
+        {weather &&
+          getWeatherNextDaysToShow(weather).map((day, index) => (
+            <div className="col-lg col-md-6 col-sm-12" key={index}>
+              <WeatherDetail data={day} index={index} />
             </div>
-          )}
-          {weather &&
-            getWeatherNextDaysToShow(weather).map((day, index) => (
-              <div className="col" key={index}>
-                <WeatherDetail data={day} index={index} />
-              </div>
-            ))}
-        </div>
+          ))}
       </div>
     </div>
   ) : (
