@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import useGeolocation from '../hooks/useLocation';
 import getOneCallWeather from '../services/WeatherService';
-import { CITIES, CURRENT_LOCATION, DAYS_TO_SHOW } from '../utils/Constants';
+import { DAYS_TO_SHOW } from '../utils/Constants';
 import CitiesSelector from './CitiesSelector';
 import ErrorView from './ErrorView';
 import GeolocationError from './GeolocationError';
@@ -10,7 +10,7 @@ import LoadingView from './LoadingView';
 import WeatherDetail from './WeatherDetail';
 import WeatherDetailCurrent from './WeatherDetailCurrent';
 
-function ComponentWithGeolocation() {
+function WeatherPage() {
   const geolocation = useGeolocation();
   const [citySelected, setCitySelected] = useState(null);
   const [weather, setWeather] = useState(null);
@@ -45,27 +45,20 @@ function ComponentWithGeolocation() {
     }
   }, [citySelected]);
 
-  const handleOnChange = ({ target }) => {
-    const { value } = target;
-    if (value === String(CURRENT_LOCATION.id)) {
-      setCitySelected(geolocation);
-    } else {
-      const selectedCity = CITIES.find(({ id }) => String(id) === value);
-      setCitySelected(selectedCity);
-    }
-  };
-
   const getWeatherNextDaysToShow = () => weather?.daily?.slice(0, DAYS_TO_SHOW);
 
   const shouldShowCurrentWeather = () =>
     !isLoading && !hasError && weather && weather?.current;
   const shouldShowNextDaysWeather = () => !isLoading && !hasError && weather;
+  const shouldShowGeolocalizationError = () => geolocation.error;
 
-  return !geolocation.error ? (
+  return shouldShowGeolocalizationError() ? (
+    <GeolocationError />
+  ) : (
     <div className="container">
       <div className="row">
         <div className="col">
-          <CitiesSelector handleOnChange={handleOnChange} />
+          <CitiesSelector handleOnChange={setCitySelected} />
         </div>
       </div>
       {isLoading && <LoadingView />}
@@ -84,9 +77,7 @@ function ComponentWithGeolocation() {
           ))}
       </div>
     </div>
-  ) : (
-    <GeolocationError />
   );
 }
 
-export default ComponentWithGeolocation;
+export default WeatherPage;

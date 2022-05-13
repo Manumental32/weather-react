@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import ComponentWithGeolocation from './components/ComponentWithGeolocation';
+import WeatherPage from './components/WeatherPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">WEATHER APP</header>
-      <ComponentWithGeolocation />
+      <header className="App-header">MANU WEATHER APP</header>
+      <WeatherPage />
     </div>
   );
 }
