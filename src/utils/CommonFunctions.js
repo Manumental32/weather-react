@@ -8,3 +8,5 @@ export const weekdayReadeable = (index) => {
   const date = dayByIndex(index);
   return new Intl.DateTimeFormat('es', { weekday: 'long' }).format(date);
 };
+
+export const formatTemp = (temp) => temp && parseFloat(temp).toFixed(0);
