@@ -12,7 +12,7 @@ function WeatherDetail({
   if (!data) return null;
   const { humidity } = data;
   const temperatureMin = formatTemp(data.temp.min);
-  const temperatureMax = formatTemp(data.temp.min);
+  const temperatureMax = formatTemp(data.temp.max);
   return (
     <div className="card mt-3">
       <h3 className="card-header size-title">{title}</h3>
