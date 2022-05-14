@@ -1,4 +1,4 @@
-#MANU WEATHER-REACT APP
+# MANU WEATHER-REACT APP
 
 Aplicación de consulta de clima en la que
 el usuario pueda visualizar el pronóstico actual y el de los próximos 5 días de la ciudad en la que se encuentra, y a su vez un selector que permita cambiar entre 5 ciudades preseleccionadas.
