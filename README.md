@@ -1,3 +1,34 @@
+#MANU WEATHER-REACT APP
+
+Aplicación de consulta de clima en la que
+el usuario pueda visualizar el pronóstico actual y el de los próximos 5 días de la ciudad en la que se encuentra, y a su vez un selector que permita cambiar entre 5 ciudades preseleccionadas.
+
+Aclaración: Es necesario otorgarle permisos de localización al navegador la primera vez que se accede al sitio, para poder utilizar la aplicación, de otra forma no podrá consultar el clima.
+
+Sitio demo:
+https://manumental32.github.io/weather-react/
+
+## Comandos disponibles
+
+Recomiendo correr el proyecto en forma local con yarn,
+
+### `yarn install`
+
+para descargar las dependencias del proyecto
+y
+
+### `yarn start `
+
+para iniciarlo en localhost
+
+-
+
+### `yarn deploy`
+
+para subirlo a github-page
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
