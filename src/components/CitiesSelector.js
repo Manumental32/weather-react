@@ -1,18 +1,16 @@
 import React from 'react';
-import useGeolocation from '../hooks/useLocation';
 import { CITIES, CURRENT_LOCATION } from '../utils/Constants';
 
-export default function CitiesSelector({ setCitySelected }) {
-  const geolocation = useGeolocation();
-
+export default function CitiesSelector({ setCitySelected, geolocation }) {
   const handleOnChange = ({ target }) => {
     const { value } = target;
+    let selectedCity = null;
     if (value === String(CURRENT_LOCATION.id)) {
-      setCitySelected(geolocation);
+      selectedCity = geolocation;
     } else {
-      const selectedCity = CITIES.find(({ id }) => String(id) === value);
-      setCitySelected(selectedCity);
+      selectedCity = CITIES.find(({ id }) => String(id) === value);
     }
+    setCitySelected(selectedCity);
   };
 
   return (
