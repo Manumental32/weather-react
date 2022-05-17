@@ -55,15 +55,15 @@ function WeatherPage() {
   return shouldShowGeolocalizationError() ? (
     <GeolocationError />
   ) : (
-    <div className="container">
-      <div className="row">
+    <main className="container">
+      <section className="row">
         <div className="col">
           <CitiesSelector handleOnChange={setCitySelected} />
         </div>
-      </div>
+      </section>
       {isLoading && <LoadingView />}
       {hasError && <ErrorView handlerRetry={searchWeather} />}
-      <div className="row">
+      <section className="row">
         {shouldShowCurrentWeather() && (
           <div className="col-12">
             <WeatherDetailCurrent data={weather?.current} />
@@ -75,8 +75,8 @@ function WeatherPage() {
               <WeatherDetail data={day} index={index} />
             </div>
           ))}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
