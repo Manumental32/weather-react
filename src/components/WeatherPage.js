@@ -58,7 +58,7 @@ function WeatherPage() {
     <main className="container">
       <section className="row">
         <div className="col">
-          <CitiesSelector handleOnChange={setCitySelected} />
+          <CitiesSelector setCitySelected={setCitySelected} />
         </div>
       </section>
       {isLoading && <LoadingView />}
