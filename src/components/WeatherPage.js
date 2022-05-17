@@ -57,7 +57,7 @@ function WeatherPage() {
   ) : (
     <main className="container">
       <section className="row">
-        <div className="col">
+        <div className="col mt-3">
           <CitiesSelector
             setCitySelected={setCitySelected}
             geolocation={geolocation}
